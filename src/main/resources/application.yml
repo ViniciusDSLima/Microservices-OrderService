@@ -1,0 +1,16 @@
+server:
+  port: 8082
+
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${DB_HOST:localhost}:3306/orderDB
+    username: Vinicius_lima
+    password: 123@Vinicius
+  application:
+    name: ORDER-SERVICE
