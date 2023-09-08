@@ -1,6 +1,7 @@
 package com.example.orderservice.service;
 
 import com.example.orderservice.entity.Order;
+import com.example.orderservice.external.client.ProductService;
 import com.example.orderservice.model.OrderRequest;
 import com.example.orderservice.repository.OrderRepository;
 import lombok.AllArgsConstructor;
@@ -15,14 +16,19 @@ import java.time.Instant;
 public class OrderServiceImpl implements OrderService{
     private OrderRepository orderRepository;
 
+    private ProductService productService;
+
     @Override
     public long placeOrder(OrderRequest orderRequest) {
         log.info("Placing order request {}", orderRequest);
 
+        productService.reduceQuantity(orderRequest.getProductId(),orderRequest.getQuantity());
+
+        log.info("Creating order with status CREATED");
         Order order = Order.builder()
                 .amount(orderRequest.getTotalAmount())
-                .orderStatus("Created")
-                .produtoId(orderRequest.getProdutoId())
+                .orderStatus("CREATED")
+                .productId(orderRequest.getProductId())
                 .orderData(Instant.now())
                 .quantity(orderRequest.getQuantity())
                 .build();

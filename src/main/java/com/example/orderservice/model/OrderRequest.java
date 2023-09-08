@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class OrderRequest {
 
-    private Long produtoId;
+    private Long productId;
     private Long totalAmount;
     private int quantity;
     @Enumerated(EnumType.STRING)
